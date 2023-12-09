@@ -7,10 +7,8 @@ import requests
 class RedditAPI:
     """Reddit API to get latest posts from a subreddit"""
 
-    def __init__(self, subreddit_name, start_date, end_date):
+    def __init__(self, subreddit_name):
         self.subreddit_name = subreddit_name
-        self.start_date = int(start_date.timestamp())
-        self.end_date = int(end_date.timestamp())
         self.posts_api_url = "https://www.reddit.com/r/{subreddit}/new.json"
         self.comments_api_url = (
             "https://www.reddit.com/r/{subreddit}/comments/{post_id}.json"
@@ -22,8 +20,6 @@ class RedditAPI:
         posts_params = {
             "sort": "new",
             "limit": 100,  # Adjust as needed, maximum is usually 100
-            "after": self.start_date,
-            "before": self.end_date,
         }
 
         # Make the API request for posts
@@ -92,9 +88,5 @@ class RedditAPI:
 
 if __name__ == "__main__":
     # Usage
-    reddit_api = RedditAPI(
-        "lakers",
-        datetime(2023, 1, 1, tzinfo=timezone.utc),
-        datetime(2023, 1, 2, tzinfo=timezone.utc),
-    )
+    reddit_api = RedditAPI("lakers")
     reddit_api.get_posts()
