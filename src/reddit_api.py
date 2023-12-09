@@ -108,7 +108,6 @@ class RedditAPI:
 
 if __name__ == "__main__":
     # Usage
-    reddit_api = RedditAPI("lakers")
-    doc_ = reddit_api.get_posts()
+    reddit_api = RedditAPI("lakers", "dev")
     S_ = "What is the public sentiment based of these reddit posts and comments?"
     print(reddit_api.get_answer(S_))
