@@ -8,3 +8,6 @@ boto3==1.24.87
 #web
 fastapi==0.85.0
 uvicorn==0.18.3
+#llm
+transformers==4.35.2
+torch==2.1.0

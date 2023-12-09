@@ -1,18 +1,24 @@
 """Reddit API to get latest posts from a subreddit"""
-from datetime import datetime, timezone
 import re
 import requests
+from transformers import pipeline
 
 
 class RedditAPI:
     """Reddit API to get latest posts from a subreddit"""
 
-    def __init__(self, subreddit_name):
+    def __init__(self, subreddit_name, mode="prod"):
         self.subreddit_name = subreddit_name
         self.posts_api_url = "https://www.reddit.com/r/{subreddit}/new.json"
         self.comments_api_url = (
             "https://www.reddit.com/r/{subreddit}/comments/{post_id}.json"
         )
+
+        if mode == "prod":
+            self.reddit_document = self.get_posts()
+        else:
+            with open("data/reddit_document.txt", "r", encoding="utf-8") as f:
+                self.reddit_document = f.read()
 
     def get_posts(self):
         """Get latest posts from a subreddit"""
@@ -80,13 +86,29 @@ class RedditAPI:
             # Extract and concatenate comment bodies
             comments = comments_response.json()[1]["data"]["children"]
             for comment in comments:
-                comment_bodies += "Comment:"
-                comment_bodies += comment["data"]["body"] + "\n"
+                try:
+                    comment_bodies += "Comment:"
+                    comment_bodies += comment["data"]["body"] + "\n"
+                except KeyError:
+                    continue
 
         return comment_bodies
+   
+    def get_answer(self, question):
+        """Get answer from a question"""
+        model_name = "deepset/roberta-base-squad2"
+        nlp = pipeline('question-answering', model=model_name, tokenizer=model_name)
+        qa_input = {
+            'question': question,
+            'context': self.reddit_document
+        }
+        res = nlp(qa_input)
+        return res['answer']
 
 
 if __name__ == "__main__":
     # Usage
     reddit_api = RedditAPI("lakers")
-    reddit_api.get_posts()
+    doc_ = reddit_api.get_posts()
+    S_ = "What is the public sentiment based of these reddit posts and comments?"
+    print(reddit_api.get_answer(S_))
