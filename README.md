@@ -4,7 +4,13 @@
 [![PythonCiCd](https://github.com/rmr327/cicd_python_template/actions/workflows/python_ci_cd.yml/badge.svg)](https://github.com/rmr327/cicd_python_template/actions/workflows/python_ci_cd.yml)
 
 ---
+![Alt text](image-1.png)
 
+![Alt text](image.png)
+
+![Alt text](image-2.png)
+
+![Alt text](image-3.png)
 **Summary**
 
 This Python GitHub automation template is designed to enhance your development workflow by incorporating a Continuous Integration and Continuous Deployment (CI/CD) automation process. With this template, you can effortlessly set up a CI/CD pipeline for your Python projects, automating routine tasks and ensuring efficient collaboration.

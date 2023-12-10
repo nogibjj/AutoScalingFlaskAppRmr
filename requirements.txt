@@ -11,4 +11,5 @@ uvicorn==0.18.3
 #llm
 transformers==4.35.2
 torch==2.1.0
-lask-3.0.0
+lask==3.0.0
+Wordcloud==1.9.3

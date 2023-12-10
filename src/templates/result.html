@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reddit Sentiment Analysis Result</title>
+    <style>
+        .positive { color: green; }
+        .negative { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Finger on the Pulse</h1>
+    <h2>Reddit Sentiment Analysis (Latest 15 posts)</h2>
+    <p class="{{ sentiment.lower() }}">Sentiment: {{ sentiment }}</p>
+    {% if sentiment == 'POSITIVE' %}
+        <img src="{{ url_for('static', filename='wordcloud.png') }}" alt="Positive">
+    {% else %}
+        <img src="{{ url_for('static', filename='wordcloud.png') }}" alt="Negative">
+    {% endif %}
+    <p>Average Score: {{ average_score }}</p>
+    <a href="/">Back</a>
+</body>
+</html>
