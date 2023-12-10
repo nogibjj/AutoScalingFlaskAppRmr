@@ -2,7 +2,7 @@
 import re
 import requests
 from transformers import pipeline
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, render_template, request
 from wordcloud import WordCloud
 
 app = Flask(__name__)
@@ -57,7 +57,7 @@ class RedditAPI:
             reddit_document = self.remove_links(reddit_document)
 
         wordcloud = WordCloud(width=800, height=400).generate(reddit_document)
-        wordcloud.to_file(r'src/static/wordcloud.png')
+        wordcloud.to_file(r"src/static/wordcloud.png")
         return reddit_document
 
     def remove_links(self, reddit_document):
@@ -135,24 +135,31 @@ class RedditAPI:
         return overall_sentiment, avg_score
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route("/", methods=["GET", "POST"])
 def index():
     """Get sentiment of reddit document"""
     print(21)
-    
-    if request.method == 'POST':
-        print('22')
-        topic = request.form.get('topic')
+
+    if request.method == "POST":
+        print("22")
+        topic = request.form.get("topic")
         print(topic)
         reddit_api = RedditAPI(topic, "prod")
         try:
             sentiment, avg_score = reddit_api.get_sentiment()
-            return render_template('result.html', sentiment=sentiment, average_score=avg_score)
+            return render_template(
+                "result.html", sentiment=sentiment, average_score=avg_score
+            )
         except ZeroDivisionError:
-            return render_template('error.html',
-                                   error_message='No subreddit found for sentiment analysis'), 400
-    
-    return render_template('index.html')
+            return (
+                render_template(
+                    "error.html",
+                    error_message="No subreddit found for sentiment analysis",
+                ),
+                400,
+            )
+
+    return render_template("index.html")
 
 
 if __name__ == "__main__":
