@@ -1,68 +1,78 @@
-# CiCd Automation Template for Python Projects
+# Reddit Sentiment Analysis Flask App
 ### by Rakeen Rouf
 
 [![PythonCiCd](https://github.com/rmr327/cicd_python_template/actions/workflows/python_ci_cd.yml/badge.svg)](https://github.com/rmr327/cicd_python_template/actions/workflows/python_ci_cd.yml)
 
 ---
+This repository contains a Flask web application that performs sentiment analysis on the latest posts from a user defined topic's subreddit using the Reddit API and the Hugging Face Transformers library.
+
+## Features
+
+- Retrieves the latest posts from a specified topic's subreddit using the Reddit API.
+- Performs sentiment analysis on the retrieved posts using the Hugging Face Transformers library.
+- Displays the sentiment analysis results in a user-friendly web interface.
+- Generates a word cloud visualization based on the retrieved posts.
+
+## Installation
+
+1. Clone the repository:
+
+   ```shell
+   git clone https://github.com/your-username/repo-name.git
+   ```
+
+2. Install the required dependencies:
+
+   ```shell
+   pip install -r requirements.txt
+   ```
+
+
+## Usage
+
+1. Run the Flask application:
+
+   ```shell
+   python reddit_sentiment_flask.py
+   ```
+
+2. Open your web browser and navigate to the locally hosted application.
+
+3. Enter the name of the topic you want to analyze and click the "Get Sentiment Analysis" button.
+
+4. The application will retrieve the latest posts from the specified topic's subreddit, perform sentiment analysis on them, and display the results along with a word cloud visualization.
+
+## Dockerization and Hosting
+
+This application has been Dockerized for easy deployment and scalability. The Docker image for this application has been uploaded to Docker Hub and hosted using Azure Container Registry.
+
+The following steps where followed:
+
+1. Build docker image (after loggin in to docket - docker login)
+![Alt text](image-5.png)
+
+2. Push the docker image from step 1 to dockerhub
+
+![Alt text](image-6.png)
+![Alt text](image-7.png)
+
+3. Add the image to Azure Container Registry
+![Alt text](image-8.png)
+
+## Sample Usage for actionable and data driven recommendation
+
+1. Positive Sentiment Example.
+
+As we can see, as of Dec 10 5:05 pm, the public has a NEGATIVE sentiment on OpenAi. This makes sense, since they are known to be an unethical company. Avoid having long exposure.
+
 ![Alt text](image-1.png)
 
 ![Alt text](image.png)
 
+1. Positive Sentiment Example.
+
+As we can see, as of Dec 10 5:05 pm, the public has a POSITIVE sentiment on Anthropic. This makes sense, since they are known to be an ethical counter party to OpenAi. Avoid having long exposure.
+
 ![Alt text](image-2.png)
 
 ![Alt text](image-3.png)
-
-![Alt text](image-4.png)
-
-![Alt text](image-5.png)
-
-![Alt text](image-6.png)
-
-![Alt text](image-7.png)
-
-**Summary**
-
-This Python GitHub automation template is designed to enhance your development workflow by incorporating a Continuous Integration and Continuous Deployment (CI/CD) automation process. With this template, you can effortlessly set up a CI/CD pipeline for your Python projects, automating routine tasks and ensuring efficient collaboration.
-
-By implementing a CI/CD workflow, you can achieve the following benefits:
-
-- **Automated Testing:** Ensure that your code is thoroughly tested before it gets deployed, reducing the likelihood of bugs or issues in production.
-
-- **Streamlined Deployment:** Automate the deployment process, making it faster, more reliable, and consistent across different environments.
-
-- **Code Quality Checks:** Enforce code quality standards and best practices, ensuring that your project maintains high standards of readability, maintainability, and performance.
-
-- **Simplified Collaboration:** Facilitate seamless code sharing and transfer between team members and environments, making it easier to collaborate on projects.
-
-With the option to develop in the cloud using GitHub Code Spaces, you can further enhance your productivity and eliminate the need for local setup and configuration.
-
----
-
-**What is Code Spaces?**
-
-GitHub Code Spaces provides cloud-hosted development environments for your repositories. It allows you to develop entirely in the cloud, eliminating the need for local setup and configuration.
-
----
-
-**Getting Started**
-
-To get started with this template, follow these steps:
-
-1. **Create a New Repository:** 
-   - Click the "Use this template" button or manually create a new repository using this template as a starting point.
-
-2. **Set Up CI/CD:** 
-   - Define your CI/CD workflows by configuring the `.github/workflows/` directory. Modify the workflows to suit your project's specific needs. 
-
-3. **Start Code Space (Optional):**
-   - If you want to develop entirely in the cloud, click the "Code" button on the GitHub repository page and select "Open with Code Spaces". This will launch a cloud-based development environment where you can start coding without any local setup.
-
-4. **Customize Automation:** 
-   - Customize the automation scripts and rules in the `.github/workflows/` directory. Configure issue management, release automation, and code quality checks according to your project requirements.
-
-5. **Documentation:** 
-   - Update the project's documentation to reflect your project's specific setup, workflows, and guidelines.
-
-6. **Requirement.txt:**
-   - Update the `requirements.txt` file to ensure all necessary Python packages have been included.
-
