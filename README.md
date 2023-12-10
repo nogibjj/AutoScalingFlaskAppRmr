@@ -13,6 +13,18 @@ This repository contains a Flask web application that performs sentiment analysi
 - Displays the sentiment analysis results in a user-friendly web interface.
 - Generates a word cloud visualization based on the retrieved posts.
 
+## Usage of Large Language Model (LLM) for Sentiment Analysis
+
+The reddit_sentiment_flask.py file in this repository utilizes a powerful large language model (LLM) for sentiment analysis. The LLM used in this code is distilbert-base-uncased-finetuned-sst-2-english, which has been pre-trained on a vast amount of text data.
+
+The sentiment analysis functionality is implemented using the Hugging Face Transformers library, which provides an easy-to-use interface for working with LLMs. The sentiment analysis pipeline is created using the pipeline function from the library.
+
+![Alt text](image-9.png)
+
+By leveraging the capabilities of the LLM, this code enables accurate sentiment analysis of the Reddit document. The LLM has been trained on a large corpus of text data, allowing it to capture complex language patterns and provide meaningful sentiment analysis results.
+
+
+
 ## Installation
 
 1. Clone the repository:
