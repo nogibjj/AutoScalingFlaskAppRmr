@@ -11,6 +11,15 @@
 ![Alt text](image-2.png)
 
 ![Alt text](image-3.png)
+
+![Alt text](image-4.png)
+
+![Alt text](image-5.png)
+
+![Alt text](image-6.png)
+
+![Alt text](image-7.png)
+
 **Summary**
 
 This Python GitHub automation template is designed to enhance your development workflow by incorporating a Continuous Integration and Continuous Deployment (CI/CD) automation process. With this template, you can effortlessly set up a CI/CD pipeline for your Python projects, automating routine tasks and ensuring efficient collaboration.
