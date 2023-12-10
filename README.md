@@ -1,7 +1,7 @@
-# Reddit Sentiment Analysis Flask App
+# Latest Sentiment Analysis on any Topic: Flask App
 ### by Rakeen Rouf
 
-[![PythonCiCd](https://github.com/rmr327/cicd_python_template/actions/workflows/python_ci_cd.yml/badge.svg)](https://github.com/rmr327/cicd_python_template/actions/workflows/python_ci_cd.yml)
+[![PythonCiCd](https://github.com/nogibjj/AutoScalingFlaskAppRmr/actions/workflows/python_ci_cd.yml/badge.svg)](https://github.com/nogibjj/AutoScalingFlaskAppRmr/actions/workflows/python_ci_cd.yml)
 
 ---
 This repository contains a Flask web application that performs sentiment analysis on the latest posts from a user defined topic's subreddit using the Reddit API and the Hugging Face Transformers library.
