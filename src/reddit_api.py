@@ -2,6 +2,9 @@
 import re
 import requests
 from transformers import pipeline
+from flask import Flask, jsonify
+
+app = Flask(__name__)
 
 
 class RedditAPI:
@@ -25,7 +28,7 @@ class RedditAPI:
         # Reddit API parameters for posts
         posts_params = {
             "sort": "new",
-            "limit": 100,  # Adjust as needed, maximum is usually 100
+            "limit": 15,  # Adjust as needed, maximum is usually 100
         }
 
         # Make the API request for posts
@@ -43,10 +46,10 @@ class RedditAPI:
             posts = posts_response.json()["data"]["children"]
             for post in posts:
                 post_id = post["data"]["id"]
-                reddit_document += "Post Title:"
-                reddit_document += post["data"]["title"] + "\n"
-                reddit_document += "Post Body:"
-                reddit_document += post["data"]["selftext"] + "\n"
+                # reddit_document += "Post Title:"
+                reddit_document += post["data"]["title"]  # + "\n"
+                # reddit_document += "Post Body:"
+                reddit_document += post["data"]["selftext"]  # + "\n"
                 reddit_document += self.get_comments(post_id)
 
             # remove links and emojis from reddit document
@@ -87,27 +90,58 @@ class RedditAPI:
             comments = comments_response.json()[1]["data"]["children"]
             for comment in comments:
                 try:
-                    comment_bodies += "Comment:"
+                    # comment_bodies += "Comment:"
                     comment_bodies += comment["data"]["body"] + "\n"
                 except KeyError:
                     continue
 
         return comment_bodies
-   
-    def get_answer(self, question):
-        """Get answer from a question"""
-        model_name = "deepset/roberta-base-squad2"
-        nlp = pipeline('question-answering', model=model_name, tokenizer=model_name)
-        qa_input = {
-            'question': question,
-            'context': self.reddit_document
-        }
-        res = nlp(qa_input)
-        return res['answer']
+
+    def get_sentiment(self):
+        """Get sentiment of reddit document"""
+        # Load sentiment analysis pipeline
+        # this uses distilbert-base-uncased-finetuned-sst-2-english
+        nlp = pipeline("sentiment-analysis")
+
+        # Split the text into chunks of 1500 tokens
+        max_length = 512
+        chunks = [
+            self.reddit_document[i : i + max_length]
+            for i in range(0, len(self.reddit_document), max_length)
+        ]
+
+        # Analyze sentiment of each chunk and aggregate the results
+        total_score = 0
+        total_positive = 0
+        total_negative = 0
+        for chunk in chunks:
+            result = nlp(chunk)
+            score = result[0]["score"]
+            total_score += score
+            if result[0]["label"] == "POSITIVE":
+                total_positive += score
+            else:
+                total_negative += score
+
+        # Calculate average score and overall sentiment
+        avg_score = total_score / len(chunks)
+        overall_sentiment = (
+            "POSITIVE" if total_positive > total_negative / 3 else "NEGATIVE"
+        )
+
+        return overall_sentiment, avg_score
+
+
+@app.route("/sentiment/<topic>", methods=["GET"])
+def get_sentiment(topic):
+    """Get sentiment of reddit document"""
+    reddit_api = RedditAPI(topic, "prod")
+    try:
+        sentiment, avg_score = reddit_api.get_sentiment()
+        return jsonify({"sentiment": sentiment, "average_score": avg_score})
+    except ZeroDivisionError:
+        return jsonify({"error": "No subreddit found for sentiment analysis"}), 400
 
 
 if __name__ == "__main__":
-    # Usage
-    reddit_api = RedditAPI("lakers", "dev")
-    S_ = "What is the public sentiment based of these reddit posts and comments?"
-    print(reddit_api.get_answer(S_))
+    app.run(debug=True)
