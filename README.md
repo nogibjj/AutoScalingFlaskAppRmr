@@ -3,6 +3,9 @@
 
 [![PythonCiCd](https://github.com/nogibjj/AutoScalingFlaskAppRmr/actions/workflows/python_ci_cd.yml/badge.svg)](https://github.com/nogibjj/AutoScalingFlaskAppRmr/actions/workflows/python_ci_cd.yml)
 
+**Walk Through Youtube Video**
+[Youtube](https://youtu.be/6mLuqUGn5n8)
+
 ---
 This repository contains a Flask web application that performs sentiment analysis on the latest posts from a user defined topic's subreddit using the Reddit API and the Hugging Face Transformers library.
 
